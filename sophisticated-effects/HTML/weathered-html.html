@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Weathered looking SVG</title>
+
+  <style>       
+    html{
+      height: 100%;
+    }
+
+    body{
+      background: silver url('../img/ConcreteLeaking.jpg');
+      background-size: cover;
+      height: 100%;
+    }
+
+    p{
+      margin-top: 0;
+      text-align: center;
+      font: 0.7em/1.4 sans-serif;
+      color: white;
+    }
+
+    ::selection {
+      background: #582D1B;
+    }
+
+    ::-moz-selection {
+      background: #582D1B;
+    }
+
+    svg{
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      visibility: hidden;
+    }
+
+    .filtered{
+        position: relative;
+        filter: url(#filter);
+        -webkit-filter: url(#filter);
+        margin: 0 auto;
+        padding: 2em 0;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    h2{
+      position: relative;
+      -webkit-transform: rotate(-12deg);
+      transform: rotate(-12deg);
+      font: 140px/1 'Racing Sans One', cursive;
+      color: #2B3F0E;
+      fill: #2B3F0E; 
+      margin: 0 auto;
+      text-align: center;
+    }
+
+  </style>
+  <link href='http://fonts.googleapis.com/css?family=Racing+Sans+One' rel='stylesheet' type='text/css'>
+</head>
+
+<body>
+  <svg version="1.1" id="Ebene_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="100%">
+
+    <defs>
+      <filter id="filter">
+        <!-- COLORS -->
+          <feFlood flood-color="#582D1B" result="COLOR-red" />
+          <feFlood flood-color="rgba(0,0,0,1)" flood-opacity="0" result="TRANSPARENT" />
+        <!-- COLORS END -->
+
+        <!-- FRACTAL TEXTURE -->
+          <feTurbulence baseFrequency=".05,.004" type="fractalNoise" numOctaves="4" seed="0" result="FRACTAL-TEXTURE_10" />
+          <feColorMatrix type="matrix" values="0 0 0 0 0,
+          0 0 0 0 0,
+          0 0 0 0 0,
+          0 0 0 -1.2 1.1" in="FRACTAL-TEXTURE_10" result="FRACTAL-TEXTURE_20" />
+        <!-- FRACTAL TEXTURE END -->
+
+        <!-- STROKE -->
+          <feMorphology operator="dilate" radius="4" in="SourceAlpha" result="STROKE_10" />
+        <!-- STROKE END -->
+
+        <!-- EXTRUDED BEVEL -->
+         <feOffset in="STROKE_10" result="BEVEL_10"/>
+          <feConvolveMatrix order="9,9" divisor="1"
+          kernelMatrix="1 0 0 0 0 0 0 0 0
+          0 1 0 0 0 0 0 0 0
+          0 0 1 0 0 0 0 0 0
+          0 0 0 1 0 0 0 0 0
+          0 0 0 0 1 0 0 0 0
+          0 0 0 0 0 1 0 0 0
+          0 0 0 0 0 0 1 0 0
+          0 0 0 0 0 0 0 1 0
+          0 0 0 0 0 0 0 0 1" in="BEVEL_10" result="BEVEL_20" />
+
+          <feOffset dx="4" dy="4" in="BEVEL_20" result="BEVEL_25"/>
+          <feComposite operator="out" in="BEVEL_25" in2="STROKE_10" result="BEVEL_30"/>
+          <feComposite in="COLOR-red" in2="BEVEL_30" operator="in" result="BEVEL_40" />
+          <feMerge result="BEVEL_50">
+            <feMergeNode in="BEVEL_40" />
+            <feMergeNode in="SourceGraphic" />
+            <feMergeNode in="TRANSPARENT" />
+          </feMerge>
+         <!-- EXTRUDED BEVEL END -->
+
+        <feComposite operator="in" in="BEVEL_50" in2="FRACTAL-TEXTURE_20" result="RESULT"/>
+        <feMerge>
+            <feMergeNode in="RESULT" />
+            <feMergeNode in="TRANSPARENT" />
+          </feMerge>
+      </filter>
+    </defs>
+
+  </svg>
+
+  <p>Change text by typing.</p>
+  <section class="filtered">
+  <h2 contenteditable="true">Petrol</h2>
+  </section>
+
+</body>
+</html>

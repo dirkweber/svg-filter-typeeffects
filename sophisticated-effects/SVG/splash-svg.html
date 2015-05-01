@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SVG spilled Water Effect</title>
+  <style>
+  html{
+      height: 100%;
+    }
+
+    body{
+      background: white url('../img/splash.jpg');
+      background-size: cover;
+      height: 100%;
+    }
+
+    ::selection {
+      background: #A64DFF;
+    }
+
+    ::-moz-selection {
+      background: #A64DFF;
+    }
+
+    svg{
+      display: block;
+      position: relative;
+      width: 640px;
+      height: 300px;
+      top: 50%;
+      transform: translateY(-50%);
+      -webkit-transform: translateY(-50%);
+      margin: 0 auto;
+      overflow: hidden; 
+      background-size: cover;
+    }
+
+    .filtered{
+      filter: url(#filter);
+      -webkit-filter: url(#filter);
+      color: #16B5FF;
+      fill: #16B5FF;
+      font-family: 'Racing Sans One', cursive;
+      font-size: 160px;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx - font-smoothing: grayscale;
+    }
+  </style>
+  <link href='http://fonts.googleapis.com/css?family=Racing+Sans+One' rel='stylesheet' type='text/css'>
+
+</head>
+
+<body>
+  <svg version="1.1" id="Ebene_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+
+    <defs>
+      <filter id="filter" width="150%" height="160%" x="-25%" y="-25%">
+      <!-- COLORS -->
+        <feFlood flood-color="#16B5FF" result="COLOR-blue" />‚
+        <feFlood flood-color="#9800FF" result="COLOR-violet" />
+        <feFlood flood-color="#A64DFF" result="COLOR-violet-light" />
+        <feFlood flood-color="rgba(0,0,0,0)" result="trans" />
+      <!-- COLORS END -->
+
+      <!-- BOTTOM SPLASH -->
+        <feTurbulence baseFrequency="0.05" type="fractalNoise" numOctaves="1" seed="2" result="BOTTOM-SPLASH_10" />
+        <feGaussianBlur stdDeviation="6.5"  in="SourceAlpha" result="BOTTOM-SPLASH_20" />
+        <feDisplacementMap scale="420" in="BOTTOM-SPLASH_20" in2="BOTTOM-SPLASH_10" result="BOTTOM-SPLASH_30"/>
+        <feComposite operator="in" in="COLOR-blue" in2="BOTTOM-SPLASH_30" result="BOTTOM-SPLASH_40" />
+      <!-- BOTTOM END -->
+
+      <!-- MIDDLE SPLASH -->
+        <feTurbulence baseFrequency="0.1" type="fractalNoise" numOctaves="1" seed="1" result="MIDDLE-SPLASH_10" />
+        <feGaussianBlur in="SourceAlpha" stdDeviation="0.1" result="MIDDLE-SPLASH_20" />
+        <feDisplacementMap in="MIDDLE-SPLASH_20" in2="MIDDLE-SPLASH_10" scale="25" result="MIDDLE-SPLASH_30"/>
+        <feComposite in="COLOR-violet-light" in2="MIDDLE-SPLASH_30" operator="in" result="MIDDLE-SPLASH_40" />
+      <!-- MIDDLE END -->
+
+      <!-- TOP SPLASH -->
+        <feTurbulence baseFrequency="0.07" type="fractalNoise" numOctaves="1" seed="1" result="TOP-SPLASH_10" />
+        <feGaussianBlur stdDeviation="3.5" in="SourceAlpha" result="TOP-SPLASH_20" />
+        <feDisplacementMap scale="220" in="TOP-SPLASH_20" in2="TOP-SPLASH_10" result="TOP-SPLASH_30"/>
+        <feComposite operator="in" in="COLOR-violet" in2="TOP-SPLASH_30" result="TOP-SPLASH_40" />
+      <!-- TOP END -->
+
+      <!-- LIGHT EFFECTS -->
+        <feMerge  result="LIGHT-EFFECTS_10">
+          <feMergeNode in="BOTTOM-SPLASH_40" />
+          <feMergeNode in="MIDDLE-SPLASH_40" /> 
+          <feMergeNode in="TOP-SPLASH_40" />
+        </feMerge>
+        <feColorMatrix type="matrix" 
+        values="0 0 0 0 0,
+        0 0 0 0 0,
+        0 0 0 0 0,
+        0 0 0 1 0" in="LIGHT-EFFECTS_10" result="LIGHT-EFFECTS_20" />
+        <feGaussianBlur stdDeviation="2" in="LIGHT-EFFECTS_20" result="LIGHT-EFFECTS_30" />
+        <feSpecularLighting surfaceScale="5" specularConstant=".75" specularExponent="30" lighting-color="#white" in="LIGHT-EFFECTS_30" result="LIGHT-EFFECTS_40">
+          <fePointLight x="-50" y="-100" z="400" />
+        </feSpecularLighting>
+        <feComposite operator="in" in="LIGHT-EFFECTS_40" in2="LIGHT-EFFECTS_20" result="LIGHT-EFFECTS_50"/>
+        <feComposite operator="arithmetic" k1="0" k2="1" k3="1" k4="0" in="LIGHT-EFFECTS_10" in2="LIGHT-EFFECTS_50" result="LIGHT-EFFECTS_60"/>
+      </filter>
+      <!-- LIGHT EFFECTS END -->
+    </defs>
+      <text class="filtered" x="50" y="200">splash!</text>
+  </svg>
+</body>
+</html>

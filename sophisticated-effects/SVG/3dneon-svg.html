@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SVG 3D "NEON" Look (SVG VERSION)</title>
+  <style>
+    html{
+      height: 100%;
+    }
+
+    body{
+      background: url('../img/rays.svg') no-repeat center center, #69008C radial-gradient(ellipse at center, rgba(70,0,103,0.8) 10%,rgba(70,0,103,0.1) 100%);
+      background-size: cover;
+      background-attachment: fixed;
+      height: 100%;
+    }
+
+    ::selection {
+      background: #4CFED7;
+    }
+
+    ::-moz-selection {
+      background: #4CFED7;
+    }
+
+    svg{
+      display: block;
+      position: relative;
+      width: 510px;
+      height: 300px;
+      top: 50%;
+      transform: translateY(-50%);
+      -webkit-transform: translateY(-50%);
+      margin: 0 auto;
+      overflow: hidden; 
+    }
+
+
+    .filtered {
+      filter: url(#filter);
+      -webkit-filter: url(#filter);
+      color: #4CFED7;
+      fill: #4CFED7;
+      font-family: 'Sancreek', cursive;
+      font-size: 170px;
+    }
+
+  </style>
+  <link href='http://fonts.googleapis.com/css?family=Sancreek' rel='stylesheet' type='text/css'>
+</head>
+
+<body> 
+  <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+
+    <defs>
+
+      <filter id="filter">
+        <!-- Colors: -->
+          <feFlood flood-color="#4CFED7"  flood-opacity="1" result="COL_green-l" />
+          <feFlood flood-color="#0A4D39"  flood-opacity="1" result="COL_green-m" />
+          <feFlood flood-color="#2A9B83"  flood-opacity="1" result="COL_green-d" />
+          <feFlood flood-color="#FA5C71"  flood-opacity="1" result="COL_red-l" />
+          <feFlood flood-color="#A5122B"  flood-opacity="1" result="COL_red-d" />
+          <feFlood flood-color="rgba(0,0,0,0)" flood-opacity="0" result="TRANSPARENT" />
+        <!-- Colors end -->
+
+        <!-- Lower Green Bevel -->
+          <feMorphology operator="dilate" radius="10" in="SourceAlpha" result="GREEN-BEVEL-1_10" />
+          <feConvolveMatrix order="8,8" divisor="1" 
+         kernelMatrix = "1 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 1" in="GREEN-BEVEL-1_10" result = "GREEN-BEVEL-1_20" />
+          <feComposite operator="in" in="COL_green-d"  in2="GREEN-BEVEL-1_20" result="GREEN-BEVEL-1_30" />
+        <!-- Lower Green Bevel End -->
+
+        <!-- Lower Green Front -->
+          <feComposite operator="in" in="COL_green-l" in2="GREEN-BEVEL-1_10" result="GREEN-FRONT-1_0" />
+          <feOffset dx="4" dy="4" in="GREEN-FRONT-1_0" result="GREEN-FRONT-1_10"/>
+          <feSpecularLighting surfaceScale="0" specularConstant=".75" specularExponent="30" lighting-color="#white" in="GREEN-FRONT-1_10" result="GREEN-FRONT-1_20">
+            <fePointLight x="0" y="-30" z="400" />
+          </feSpecularLighting>
+          <feComposite operator="out" in2="GREEN-FRONT-1_20" in="GREEN-FRONT-1_10" result="GREEN-FRONT-1_30" />
+        <!-- Lower Green Front End -->
+
+        <!-- Upper Green Bevel -->
+          <feMorphology operator="dilate" radius="7" in="SourceAlpha" result="GREEN-BEVEL-2_0" />
+          <feConvolveMatrix order="8,8" divisor="1" 
+         kernelMatrix = "1 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 1" in="GREEN-BEVEL-2_0" result = "GREEN-BEVEL-2_10" />
+          <feComposite operator="in" in="COL_green-d" in2="GREEN-BEVEL-2_10" result="GREEN-BEVEL-2_20" />
+          <feOffset dx="9" dy="9" in="GREEN-BEVEL-2_20" result="GREEN-BEVEL-2_30"/>
+        <!-- Upper Green Bevel end -->
+
+        <!-- Upper Green Front -->
+          <feOffset dx="18" dy="18" in="GREEN-BEVEL-2_0" result="GREEN-FRONT-2_10"/>
+          <feComposite operator="in" in="COL_green-l" in2="GREEN-FRONT-2_10" result="GREEN-FRONT-2_20" />
+          <feSpecularLighting surfaceScale="0" specularConstant="0.75" specularExponent="40" lighting-color="#white" in="GREEN-FRONT-2_20" result="GREEN-FRONT-2_30">
+            <fePointLight x="120" y="170" z="500" />
+          </feSpecularLighting>
+           <feComposite operator="in" in2="GREEN-FRONT-2_10" in="GREEN-FRONT-2_30" result="GREEN-FRONT-2_40" />
+        <!-- Upper Green Front end -->
+
+        <!-- Bevels and Front shaded -->
+          <feMerge  result="SHADED-BEVELS_0">
+            <feMergeNode in="GREEN-BEVEL-1_10" />
+            <feMergeNode in="GREEN-FRONT-1_30" /> 
+            <feMergeNode in="GREEN-BEVEL-2_30" />
+            <feMergeNode in="GREEN-FRONT-2_20" /> 
+            <feMergeNode in="GREEN-FRONT-2_40" />
+            <feMergeNode in="TRANSPARENT" /> 
+          </feMerge>
+
+          <feSpecularLighting surfaceScale="0" specularConstant="0.45" specularExponent="30" lighting-color="#white" in="SHADED-BEVELS_0" result="SHADED-BEVELS_10">
+              <fePointLight x="320" y="-20" z="400" />
+          </feSpecularLighting>
+          <feComposite operator="in" in2="SHADED-BEVELS_0" in="SHADED-BEVELS_10" result="SHADED-BEVELS_30" />
+        <!-- Bevels and Front shaded end -->
+
+        <!-- Upper Red Bevel -->
+          <feConvolveMatrix order="4,4" divisor="1" 
+          kernelMatrix="1 0 0 0
+          0 1 0 0
+          0 0 1 0
+          0 0 0 1" in="SourceAlpha" result = "RED-BEVEL-0_0" />
+          <feComposite in="COL_red-d" in2="RED-BEVEL-0_0" operator="in"  result="RED-BEVEL-0_10" />
+          <feOffset dx="20" dy="20" in="RED-BEVEL-0_10" result="RED-BEVEL-0_20"/>
+        <!-- Upper Red Bevel end -->
+
+        <!-- Upper Red Front -->
+          <feComposite operator="in"  in="COL_red-l" in2="SourceAlpha" result="RED-FRONT-0_0" />
+          <feOffset dx="24" dy="24" in="RED-FRONT-0_0" result="RED-FRONT-0_10"/>
+          <feSpecularLighting surfaceScale="0" specularConstant=".45" specularExponent="30" lighting-color="#white" in="RED-FRONT-0_10" result="RED-FRONT-0_20">
+          <fePointLight x="20" y="180" z="300" />
+          </feSpecularLighting>
+          <feComposite operator="in" in2="RED-FRONT-0_10" in="RED-FRONT-0_20" result="RED-FRONT-0_30" />
+        <!-- Upper Red Front end-->
+
+        <!-- Inner Line -->
+          <feMorphology radius="4" in="SourceAlpha" result="INNER-LINE_0"/>
+          <feMorphology radius="5" in="SourceAlpha" result="INNER-LINE_10"/>
+          <feComposite operator="out" in="INNER-LINE_0" in2="INNER-LINE_10" result="INNER-LINE_20" />
+          <feComposite operator="in" in="COL_green-l" in2="INNER-LINE_20" result="INNER-LINE_30" />
+          <feOffset dx="24" dy="24" in="INNER-LINE_30" result="INNER-LINE_40"/>
+        <!-- Inner Line end -->
+
+        <feMerge  result="extruded-m">
+          
+          <feMergeNode in="SHADED-BEVELS_0" />
+          <feMergeNode in="SHADED-BEVELS_30" />
+          <feMergeNode in="RED-BEVEL-0_20" /> 
+          <feMergeNode in="RED-FRONT-0_10" /> 
+          <feMergeNode in="RED-FRONT-0_30" /> 
+          <feMergeNode in="INNER-LINE_40" />
+
+          <feMergeNode in="TRANSPARENT" /> 
+        </feMerge>
+
+      </filter> 
+
+    </defs>
+    
+    <g class="filtered">
+      <text x="20" y="260" transform="skewY(-12)">West!</text>
+    </g>
+  </svg>
+  </body>
+</html>

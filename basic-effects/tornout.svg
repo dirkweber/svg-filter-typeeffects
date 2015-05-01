@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 600 100" preserveAspectRatio="xMidYMid meet">
+  <defs>
+    <link xmlns="http://www.w3.org/1999/xhtml" href="http://fonts.googleapis.com/css?family=Ultra" rel="stylesheet" type="text/css" />
+    <style type="text/css">
+
+      <![CDATA[   
+
+      ::selection {
+        background: black;
+      }
+
+      ::-moz-selection {
+        background: black;
+      }
+
+
+      .filtered{
+        filter: url(#filter);
+        fill: black;
+        font-family: 'Ultra', serif;
+        font-size: 100px;
+      }
+      ]]>
+
+    </style>
+
+    <filter id="filter">
+      <feTurbulence result="TURBULENCE" baseFrequency="0.08" numOctaves="1" seed="1" />
+      <feDisplacementMap in="SourceGraphic" in2="TURBULENCE" scale="9" />
+      </filter>
+
+  </defs>
+
+    <text class="filtered" x="20" y="85">Torn Out</text>
+    
+</svg>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Extruded SVG filter effect on SVG element</title>
+    <style>
+      html{
+        height: 100%;
+      }
+
+      body{
+        background: #A82B12;
+        height: 100%;
+        background-image: url('../img/flesh.jpg');
+        background-size: cover;
+        background-attachment: fixed;
+      }
+
+      p{
+        margin-top: 3em;
+        text-align: center;
+        font: 0.7em/1.4 sans-serif;
+        color: white;
+      }
+
+      ::selection {
+        background: #D7A500;
+      }
+
+      ::-moz-selection {
+        background: #D7A500;
+      }
+
+      svg{
+        width: 100%;
+        height: 100%;
+        visibility: hidden;
+        position: absolute;
+        pointer-events: none;
+      }
+
+      .filtered{
+        position: relative;
+        filter: url(#filter);
+        -webkit-filter: url(#filter);
+        color: #D7A500;
+        fill: #D7A500;
+        font: 140px/1 'Oleo Script', cursive;
+        margin: 0 auto;
+        top: 50%;
+        text-align: center;
+        transform: translateY(-50%);
+      }
+
+      .moustard{
+        stroke: #D7A500;
+      }
+    </style>
+    <link href='http://fonts.googleapis.com/css?family=Oleo+Script:700' rel='stylesheet' type='text/css'>
+  </head>
+
+  <body> 
+    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+
+      <defs>
+        <filter id="filter" filterUnits="userSpaceOnUse">
+          <!-- COLORS -->
+            <feFlood flood-color="#663300" result="COLOR-red" />
+            <feFlood flood-color="#D7A500" result="COLOR-y" />
+            <feFlood flood-color="rgba(0,0,0,0)" flood-opacity="0" result="TRANSPARENT" />
+          <!-- COLORS END -->
+
+          <!-- STRIPE FILL -->
+              <feImage xlink:href="data:image/svg+xml;charset=utf-8,%3Csvg%20version%3D%221.1%22%20id%3D%22Untitled-Seite_x25_201%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%20width%3D%2210px%22%20height%3D%224px%22%3E%0A%3Crect%20fill%3D%22%239F6B00%22%20width%3D%2210%22%20height%3D%222%22%2F%3E%3C%2Fsvg%3E" x="0" y="0" width="10" height="4" result="STRIPE FILL_10"/> 
+            <feTile width="100%" height="100%" in="STRIPE FILL_10" result="STRIPE FILL_20"/>
+            <feComposite operator="in" in="STRIPE FILL_20" in2="SourceAlpha" result="STRIPE FILL_30"/>
+          <!-- STRIPE FILL END -->
+
+          <!-- THIN BEVEL -->
+            <feMorphology operator="dilate" radius="2" in="SourceAlpha" result="THIN-BEVEL_10" />
+            <feComposite operator="out" in="THIN-BEVEL_10" in2="SourceAlpha" result="THIN-BEVEL_20"/>
+            <feComposite operator="in" in="COLOR-y" in2="THIN-BEVEL_20" result="THIN-BEVEL_30" />
+          <!-- THIN BEVEL END -->
+
+          <!-- OUTER BEVEL -->
+           <feConvolveMatrix order="9,9" divisor="1"
+            kernelMatrix="1 0 0 0 0 0 0 0 0
+            0 1 0 0 0 0 0 0 0
+            0 0 1 0 0 0 0 0 0
+            0 0 0 1 0 0 0 0 0
+            0 0 0 0 1 0 0 0 0
+            0 0 0 0 0 1 0 0 0
+            0 0 0 0 0 0 1 0 0
+            0 0 0 0 0 0 0 1 0
+            0 0 0 0 0 0 0 0 1" in="SourceGraphic" result="OUTER-BEVEL_10" />
+            <feOffset dx="4" dy="4" in="OUTER-BEVEL_10" result="OUTER-BEVEL_20"/>
+            <feComposite operator="in" in="COLOR-red" in2="OUTER-BEVEL_20" result="OUTER-BEVEL_30" />
+           <!-- OUTER BEVEL END -->
+
+          <!-- INNER BEVEL -->
+           <feOffset in="SourceAlpha" dx="4" dy="4" result="INNER-BEVEL_10"/>
+            <feComposite operator="out" in2="INNER-BEVEL_10" in="SourceAlpha" result="INNER-BEVEL_20" />
+            <feComposite in="COLOR-red" in2="INNER-BEVEL_20" operator="in"  result="INNER-BEVEL_30" />
+          <!--  INNER BEVEL END -->
+
+          <!-- FAT OUTLINE -->
+            <feMorphology operator="dilate" radius="6" in="OUTER-BEVEL_30" result="FAT-OUTLINE_10" />
+            <feComposite operator="in" in="COLOR-y" in2="FAT-OUTLINE_10" result="FAT-OUTLINE_20" />
+          <!-- FAT OUTLINE END -->
+
+            <feMerge  result="merge2">
+              <feMergeNode in="FAT-OUTLINE_20" />
+              <feMergeNode in="OUTER-BEVEL_30" />   
+              <feMergeNode in="STRIPE FILL_30" /> 
+              <feMergeNode in="INNER-BEVEL_30" />   
+              <feMergeNode in="THIN-BEVEL_30" />
+              <feMergeNode in="TRANSPARENT" />
+            </feMerge> 
+          </filter>
+      </defs>
+    </svg>
+    <h2 contenteditable="true" class="filtered">Bazooka!</h2>
+    <p>Change text by typing.</p>
+  </body>
+</html>

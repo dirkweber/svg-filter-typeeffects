@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>3d lighting effect</title>
+
+  <style>       
+    html{
+      height: 100%;
+    }
+
+    body{
+      background: white;
+      height: 100%;
+    }
+
+    ::selection {
+      background: black;
+    }
+
+    ::-moz-selection {
+      background: black;
+    }
+
+    svg{
+      display: block;
+      position: relative;
+      width: 600px;
+      height: 100px;
+      top: 50%;
+      transform: translateY(-50%);
+      -webkit-transform: translateY(-50%);
+      margin: 0 auto;
+    }
+
+    .filtered{
+      filter: url(#filter);
+      -webkit-filter: url(#filter);
+      color: black;
+      fill: black;
+      font-family: 'Lemon', cursive;
+      font-size: 100px;
+    }
+  </style>
+  
+  <link href='http://fonts.googleapis.com/css?family=Lemon' rel='stylesheet' type='text/css'>
+</head>
+
+<body>
+  <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs>
+    <filter id="filter">
+      <feGaussianBlur stdDeviation="5" in="SourceAlpha" result="BLUR"/>
+
+        <feSpecularLighting surfaceScale="6" specularConstant="1" specularExponent="30" lighting-color="#white" in="BLUR" result="SPECULAR">
+          <fePointLight x="40" y="-30" z="200" />
+        </feSpecularLighting>
+        <feComposite operator="in" in="SPECULAR" in2="SourceAlpha" result="COMPOSITE"/>
+        <feMerge>
+              <feMergeNode in="SourceAlpha" />
+              <feMergeNode in="COMPOSITE"/>
+            </feMerge>
+    </filter>
+  </defs>
+  <text class="filtered" x="20" y="85">Beveled</text>
+</svg>
+</body>
+</html>
