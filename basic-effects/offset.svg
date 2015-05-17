@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 600 100" preserveAspectRatio="xMidYMid meet">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="600" height="100">
   <defs>
     <link xmlns="http://www.w3.org/1999/xhtml" href="http://fonts.googleapis.com/css?family=Ultra" rel="stylesheet" type="text/css" />
     <style type="text/css">
@@ -28,15 +28,12 @@
       <feFlood flood-color="#FF0000" flood-opacity="0.5" result="RED" />
       <feFlood flood-color="#00FF00" flood-opacity="0.5" result="GREEN" />
       <feFlood flood-color="#0000FF" flood-opacity="0.5" result="BLUE" />
-
       <feComposite operator="in" in="RED" in2="SourceAlpha" result="RED_TEXT"/>
       <feComposite operator="in" in="GREEN" in2="SourceAlpha" result="GREEN_TEXT"/>
       <feComposite operator="in" in="BLUE" in2="SourceAlpha" result="BLUE_TEXT"/>
-
       <feOffset in="RED_TEXT" dx="-15" dy="0" result="RED_TEXT_OFF"/>
       <feOffset in="GREEN_TEXT" dx="15" dy="0"  result="GREEN_TEXT_OFF"/>
       <feOffset in="BLUE_TEXT" dx="0" dy="0"  result="BLUE_TEXT_OFF"/>
-
       <feMerge>
               <feMergeNode in="RED_TEXT_OFF" />
               <feMergeNode in="GREEN_TEXT_OFF"/>
@@ -44,6 +41,5 @@
       </feMerge>
     </filter>
   </defs>
-  
   <text class="filtered" x="20" y="85">Off Set.</text>
 </svg>

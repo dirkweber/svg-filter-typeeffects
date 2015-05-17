@@ -11,9 +11,36 @@
     }
 
     body{
-      background: silver url('../img/ConcreteLeaking.jpg');
-      background-size: cover;
+      background-color: silver;
       height: 100%;
+      background-size: cover;
+      background-attachment: fixed;
+      overflow: hidden;
+      padding: 0;
+      margin: 0;
+    }
+
+    @media screen and (max-width: 1281px) {
+      body {
+        background-image: url('../img/concrete_m.jpg');
+      }
+    }
+
+    @media screen and (max-width: 760px) {
+      body {
+        background-image: url('../img/concrete_s.jpg');
+      }
+    }
+
+    @media screen and (min-width: 1281px),
+    screen and (-webkit-min-device-pixel-ratio: 2),
+    screen and ( min--moz-device-pixel-ratio: 2),
+    screen and ( min-device-pixel-ratio: 2),
+    screen and ( min-resolution: 192dpi),
+    screen and ( min-resolution: 2dppx){ 
+      body {
+        background-image: url('../img/concrete_l.jpg');
+      }
     }
 
     ::selection {
@@ -27,8 +54,9 @@
     svg{
       display: block;
       position: relative;
-      width: 460px;
-      height: 220px;
+      min-width: 460px;
+      width: 70%;
+      height: 70%;
       top: 50%;
       transform: translateY(-50%);
       -webkit-transform: translateY(-50%);
@@ -53,13 +81,12 @@
 </head>
 
 <body>
-  <svg version="1.1" id="Ebene_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <svg version="1.1" id="Ebene_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewbox="0 0 460 220" preserveAspectRatio="xMidYMid keep">
 
     <defs>
       <filter id="filter" >
         <!-- COLORS -->
           <feFlood flood-color="#582D1B" result="COLOR-red" />
-          <feFlood flood-color="rgba(0,0,0,1)" flood-opacity="0" result="TRANSPARENT" />
         <!-- COLORS END -->
 
         <!-- FRACTAL TEXTURE -->

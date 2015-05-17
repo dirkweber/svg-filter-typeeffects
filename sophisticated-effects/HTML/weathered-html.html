@@ -11,10 +11,36 @@
     }
 
     body{
-      background: silver url('../img/ConcreteLeaking.jpg');
-      background-size: cover;
+      background-color: silver;
       height: 100%;
+      background-size: cover;
+      background-attachment: fixed;
+      padding: 0;
+      margin: 0;
     }
+
+    @media screen and (max-width: 1281px) {
+      body {
+        background-image: url('../img/concrete_m.jpg');
+      }
+    }
+
+    @media screen and (max-width: 760px) {
+      body {
+        background-image: url('../img/concrete_s.jpg');
+      }
+    }
+
+    @media screen and (min-width: 1281px),
+    screen and (-webkit-min-device-pixel-ratio: 2),
+    screen and ( min--moz-device-pixel-ratio: 2),
+    screen and ( min-device-pixel-ratio: 2),
+    screen and ( min-resolution: 192dpi),
+    screen and ( min-resolution: 2dppx){ 
+      body {
+        background-image: url('../img/concrete_l.jpg');
+      }
+    } 
 
     p{
       margin-top: 0;
@@ -72,7 +98,6 @@
       <filter id="filter">
         <!-- COLORS -->
           <feFlood flood-color="#582D1B" result="COLOR-red" />
-          <feFlood flood-color="rgba(0,0,0,1)" flood-opacity="0" result="TRANSPARENT" />
         <!-- COLORS END -->
 
         <!-- FRACTAL TEXTURE -->
@@ -106,16 +131,10 @@
           <feMerge result="BEVEL_50">
             <feMergeNode in="BEVEL_40" />
             <feMergeNode in="SourceGraphic" />
-            <feMergeNode in="TRANSPARENT" />
           </feMerge>
          <!-- EXTRUDED BEVEL END -->
 
         <feComposite operator="in" in="BEVEL_50" in2="FRACTAL-TEXTURE_20" result="RESULT"/>
-        <feMerge>
-            <feMergeNode in="RESULT" />
-            <feMergeNode in="TRANSPARENT" />
-          </feMerge>
-      </filter>
     </defs>
 
   </svg>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 600 100" preserveAspectRatio="xMidYMid meet">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="600" height="100">
   <defs>
     <link xmlns="http://www.w3.org/1999/xhtml" href="http://fonts.googleapis.com/css?family=Ultra" rel="stylesheet" type="text/css" />
     <style type="text/css">
@@ -29,5 +29,5 @@
       <feComposite operator="in" in="TILEPATTERN" in2="SourceAlpha" />
     </filter>
   </defs>
-  <text class="filtered" x="20" y="85">STRIPES!</text>
+  <text class="filtered" x="20" y="95">STRIPES!</text>
 </svg>

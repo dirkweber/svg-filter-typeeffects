@@ -10,11 +10,35 @@
       }
 
       body{
-        background: #A82B12;
+        background-color: #A82B12;
         height: 100%;
-        background-image: url('../img/flesh.jpg');
         background-size: cover;
         background-attachment: fixed;
+        padding: 0;
+        margin: 0;
+      }
+
+      @media screen and (max-width: 1281px) {
+        body {
+          background-image: url('../img/meat_m.jpg');
+        }
+      }
+
+      @media screen and (max-width: 760px) {
+        body {
+          background-image: url('../img/meat_s.jpg');
+        }
+      }
+
+      @media screen and (min-width: 1281px),
+      screen and (-webkit-min-device-pixel-ratio: 2),
+      screen and ( min--moz-device-pixel-ratio: 2),
+      screen and ( min-device-pixel-ratio: 2),
+      screen and ( min-resolution: 192dpi),
+      screen and ( min-resolution: 2dppx){ 
+        body {
+          background-image: url('../img/meat_l.jpg');
+        }
       }
 
       ::selection {
@@ -48,10 +72,6 @@
         -webkit-font-smoothing: antialiased;
         -moz-osx - font-smoothing: grayscale;
       }
-
-      .moustard{
-        stroke: #D7A500;
-      }
     </style>
     <link href='http://fonts.googleapis.com/css?family=Oleo+Script:400,700' rel='stylesheet' type='text/css'>
   </head>
@@ -64,7 +84,6 @@
           <!-- COLORS -->
             <feFlood flood-color="#663300" result="COLOR-red" />‚
             <feFlood flood-color="#D7A500" result="COLOR-y" />
-            <feFlood flood-color="rgba(0,0,0,0)" flood-opacity="0" result="TRANSPARENT" />
           <!-- COLORS END -->
 
           <!-- STRIPE FILL -->
@@ -103,7 +122,6 @@
               <feMergeNode in="STRIPE FILL_30" /> 
               <feMergeNode in="INNER-BEVEL_30" />   
               <feMergeNode in="THIN-BEVEL_30" />
-              <feMergeNode in="TRANSPARENT" />
             </feMerge> 
           </filter>
       </defs>

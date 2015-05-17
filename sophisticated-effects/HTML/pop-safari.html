@@ -1,0 +1,104 @@
+  <!DOCTYPE html>
+  <html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SVG Poster effect, optimized for Safari</title>
+    <style>
+      body{
+        background: black;
+        margin: 0;
+        padding: 0;
+      }
+
+      ::selection {
+        background: #582D1B;
+      }
+
+      ::-moz-selection {
+        background: #582D1B;
+      }
+
+      svg{
+        position: absolute;
+        pointer-events: none;
+        width: 500px;
+        height: 400px;
+        left: 0;
+      }
+
+      .filtered{
+        position: absolute;
+        display: block;
+        width: 500px;
+        height: 150px;
+        margin: 0;
+        left: 0;
+        top: 125px;
+        text-align: center;
+        font: 800 140px/1 'Sniglet', sans-serif;
+        filter: url(#filter);
+        -webkit-filter: url(#filter);
+        color: #EF7349;
+      }
+
+      .poster {
+        position: absolute;
+        display: block;
+        width: 500px;
+        height: 400px;
+        overflow: hidden;
+        background-size: cover;
+        background: #FFBF00 url('../img/orange.jpg') center center;
+      }
+    </style>
+
+    <link href='http://fonts.googleapis.com/css?family=Sniglet:800' rel='stylesheet' type='text/css'>
+  </head>
+
+  <body>
+
+    <section class="poster">
+      <svg version="1.1" id="Ebene_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="500" height="400" viewbox="0 0 500 400" >
+
+        <defs>
+          <filter id="filter">
+
+            <!-- COLORS -->
+            <feFlood flood-color="#551C0B" result="COLOR-outline" />
+            <!-- COLORS END-->
+
+            <!-- OUTLINE -->
+            <feMorphology operator="dilate" radius="6" in="SourceAlpha" result="OUTLINE_10" />
+            <feComposite operator="in" in="COLOR-outline" in2="OUTLINE_10" result="OUTLINE_20" />
+            <!-- OUTLINE END -->
+
+            <!-- LIGHTING EFFECTS -->
+            <feGaussianBlur stdDeviation="4" in="SourceAlpha" result="LIGHTING-EFFECTS_10"/>
+            <feSpecularLighting surfaceScale="5" specularConstant="0.8" specularExponent="7.5" lighting-color="#white" in="LIGHTING-EFFECTS_10" result="LIGHTING-EFFECTS_20">
+              <fePointLight x="-250" y="-50" z="300" />
+            </feSpecularLighting>
+            <feComposite operator="in" in="LIGHTING-EFFECTS_20" in2="SourceAlpha" result="LIGHTING-EFFECTS_30"/>
+            <feComposite in="SourceGraphic" in2="LIGHTING-EFFECTS_30" operator="arithmetic" k1="0" k2="1" k3="1" k4="0" result="LIGHTING-EFFECTS_40"/>
+            <!-- LIGHTING EFFECTS END -->
+
+            <!-- COLOR EFFECTS -->
+            <feComponentTransfer in="LIGHTING-EFFECTS_40" result="COLOR-EFFECTS_10">
+              <feFuncR type="gamma" offset="-0.3" amplitude="1.1" exponent="4.84"/>
+              <feFuncG type="gamma" offset="-0.3" amplitude="3.1" exponent="4.84"/>
+              <feFuncB type="gamma" offset="13.3" amplitude="0.1" exponent="1.84"/>
+            </feComponentTransfer>
+            <!-- COLOR EFFECTS END -->
+
+            <feMerge>
+              <feMergeNode in="OUTLINE_20" />
+              <feMergeNode in="COLOR-EFFECTS_10"/>
+            </feMerge>
+          </filter>
+        </defs>
+      </svg>
+
+      <h2 contenteditable="true" class="filtered">BLOP!</h2>
+    </section>
+  </body>
+</html>
